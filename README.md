@@ -87,11 +87,11 @@ python -m http.server 8080
 
 | Deliverable | Status |
 |-------------|--------|
-| Strategy docs (docs/01–09) | ✅ Ready |
+| Strategy docs (docs/00–11) | ✅ Ready |
 | Compliance docs | ✅ Ready |
 | Brand assets | ✅ Ready |
 | Pitch deck (HTML) | ✅ Ready |
-| Demo video script + subtitles | ✅ Ready |
+| Demo video | 🟡 Script + storyboard + SRT + render.ps1 ready — needs 15–30 min of your recording/rendering |
 | Agent team prototype | ✅ Runnable · 30/30 benchmark |
 | Frontend demo | ✅ Three pages |
 
