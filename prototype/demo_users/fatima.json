@@ -1,0 +1,13 @@
+{
+  "id": "fatima",
+  "session_id": "fatima-demo",
+  "persona": "Fatima, 38, Dubai, marketing lead",
+  "context": "Wakes tired after 3pm. Fasting glucose creeping up over 6 months. No diagnosis. Apple Health user.",
+  "opt_in_data": ["wearable", "text_checkins"],
+  "cultural_context": "integrated, culturally open",
+  "wearable_snapshot": {
+    "resting_hr_trend_6w": "slight increase",
+    "hrv_trend_6w": "down 12%",
+    "sleep_hours_avg": 6.4
+  }
+}

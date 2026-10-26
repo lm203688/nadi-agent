@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" role="img" aria-label="Nadi wordmark">
+  <title>Nadi</title>
+  <defs>
+    <style>
+      .nm { font-family: 'Fraunces', 'Inter', 'Georgia', serif; font-weight: 600; }
+      .tg { font-family: 'Inter', system-ui, sans-serif; font-weight: 400; letter-spacing: 0.08em; }
+    </style>
+  </defs>
+  <!-- Pulse glyph: four rising nodes -->
+  <g transform="translate(0,18)">
+    <path d="M0,14 L18,14 L22,14 L26,4 L30,24 L34,6 L38,22 L42,14 L60,14"
+          fill="none" stroke="#c2663a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="26" cy="4" r="2.4" fill="#6b8e7f"/>
+    <circle cx="30" cy="24" r="2.4" fill="#8a6ea3"/>
+    <circle cx="34" cy="6" r="2.4" fill="#b58755"/>
+    <circle cx="38" cy="22" r="2.4" fill="#c2663a"/>
+  </g>
+  <text x="72" y="40" class="nm" font-size="34" fill="#1a1a1a">Nadi</text>
+  <text x="72" y="56" class="tg" font-size="8" fill="#8a8275">A TEAM · FOR YOUR HEALTH</text>
+</svg>

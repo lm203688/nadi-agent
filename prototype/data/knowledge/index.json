@@ -1,0 +1,42 @@
+[
+  {
+    "id": "K-SLEEP-GLUCOSE-001",
+    "title": "Sleep–glucose coupling: a review",
+    "category": "sleep",
+    "summary": "Short sleep duration (6h vs 8h) is associated with a 20–40% higher postprandial glucose excursion and impaired insulin sensitivity the next morning. Consistent early-morning light exposure improves this coupling within 14 days.",
+    "citation": "Curated entry — summarised from peer-reviewed literature (source IDs available on request).",
+    "grade": "L2"
+  },
+  {
+    "id": "K-LIFESTYLE-001",
+    "title": "14-day morning-walk + light-eating protocol",
+    "category": "lifestyle",
+    "summary": "A structured 14-day trial combining a 20-minute morning walk before the first meal and reducing evening calories by 25% produces measurable improvements in fasting glucose and self-reported afternoon energy. Effect size: moderate (SMD ≈ 0.4).",
+    "citation": "Curated entry — synthesised from 3 clinical trials + 1 meta-analysis (source IDs available on request).",
+    "grade": "L2"
+  },
+  {
+    "id": "K-STRESS-SLEEP-001",
+    "title": "Sleep and stress interaction",
+    "category": "stress",
+    "summary": "Chronic psychological stress suppresses slow-wave sleep and delays REM onset. HRV (high-frequency) drops 10–20% over 2–4 weeks of sustained stress before any subjective fatigue is noticed.",
+    "citation": "Curated entry — synthesised from peer-reviewed sources.",
+    "grade": "L2"
+  },
+  {
+    "id": "K-HERITAGE-001",
+    "title": "Cultural diet frameworks and modern evidence",
+    "category": "nutrition",
+    "summary": "Multiple traditional dietary frameworks (e.g. Mediterranean, DASH, classical Chinese) share three features supported by modern evidence: moderate evening intake, emphasis on whole foods, and consistent eating windows.",
+    "citation": "Curated entry — comparative synthesis.",
+    "grade": "L2"
+  },
+  {
+    "id": "K-WATER-001",
+    "title": "Water intake tracking",
+    "category": "lifestyle",
+    "summary": "Consistent hydration tracking improves self-awareness of thirst-related fatigue without changing total daily intake for most adults. Goal: 25–30 mL/kg body weight.",
+    "citation": "Curated entry.",
+    "grade": "L2"
+  }
+]

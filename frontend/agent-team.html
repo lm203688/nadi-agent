@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nadi · Agent Team — Four voices, one answer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1a1a; --bone:#f5efe4; --clay:#c2663a; --paper:#fbf7ee;
+  --fog:#e5ddc8; --stone:#8a8275; --ash:#4a4641;
+  --planner:#6b8e7f; --executor:#8a6ea3; --critic:#b58755; --guardian:#c2663a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bone);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1360px;margin:0 auto;padding:0 28px}
+.mono{font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--stone)}
+
+/* Header */
+header{border-bottom:1px solid var(--fog);padding:18px 0;background:var(--bone);position:sticky;top:0;z-index:20}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .wordmark{font-family:'Fraunces',serif;font-weight:600;font-size:20px}
+nav{display:flex;gap:22px;align-items:center}
+nav a{font-size:14px;color:var(--ash);text-decoration:none;border-bottom:0}
+nav a:hover{color:var(--ink)}
+nav .cta{background:var(--clay);color:var(--bone);padding:8px 16px;border-radius:2px;font-weight:500}
+
+/* Top bar */
+.topbar{padding:28px 0 20px;border-bottom:1px solid var(--fog)}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.topbar h1{font-family:'Fraunces',serif;font-size:clamp(30px,3.4vw,44px);font-weight:600;letter-spacing:-.015em;line-height:1.05}
+.topbar .sub{margin-top:6px;color:var(--ash);font-size:15px;max-width:56ch}
+
+/* Layout */
+.layout{display:grid;grid-template-columns:280px 1fr 340px;gap:20px;padding:22px 0 60px;min-height:calc(100vh - 200px)}
+
+/* Left rail: prompts */
+.rail{background:var(--paper);border:1px solid var(--fog);border-radius:3px;padding:16px}
+.rail h3{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--stone);letter-spacing:.14em;margin-bottom:14px}
+.prompts{display:flex;flex-direction:column;gap:6px}
+.prompt-btn{
+  text-align:left;background:transparent;border:1px solid var(--fog);color:var(--ash);
+  padding:10px 12px;border-radius:2px;font:inherit;font-size:13px;line-height:1.4;cursor:pointer;
+  transition:all .15s ease;
+}
+.prompt-btn:hover{border-color:var(--ink);color:var(--ink);background:#fff}
+.prompt-btn.active{border-color:var(--ink);color:var(--ink);background:#fff;box-shadow:inset 3px 0 0 var(--clay)}
+.prompt-btn .tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;padding:1px 6px;border-radius:2px;margin-right:6px;letter-spacing:.08em}
+.prompt-btn .tag.safe{background:#e7f0e9;color:#3d6552}
+.prompt-btn .tag.acute{background:#fbe4d5;color:#7a3a1a}
+.prompt-btn .tag.med{background:#f7e4d5;color:#7a3a1a}
+.prompt-btn .tag.diag{background:#f7e4d5;color:#7a3a1a}
+.prompt-btn .tag.ped{background:#f7e4d5;color:#7a3a1a}
+.prompt-btn .tag.lab{background:#f7e4d5;color:#7a3a1a}
+
+/* Center: deliberation */
+.delib{background:var(--paper);border:1px solid var(--fog);border-radius:3px;padding:0;display:flex;flex-direction:column;overflow:hidden}
+.delib-head{padding:16px 22px;border-bottom:1px solid var(--fog);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.delib-head .title{font-family:'Fraunces',serif;font-size:17px;font-weight:600}
+.delib-head .status{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--stone);letter-spacing:.1em}
+.delib-head .status.live::before{content:'';display:inline-block;width:6px;height:6px;background:var(--planner);border-radius:50%;margin-right:6px;animation:pulse 1.4s infinite}
+.delib-head .status.done::before{content:'';display:inline-block;width:6px;height:6px;background:var(--ink);border-radius:50%;margin-right:6px}
+.delib-head .status.blocked::before{content:'';display:inline-block;width:6px;height:6px;background:var(--guardian);border-radius:50%;margin-right:6px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+.turn{padding:20px 22px;border-bottom:1px solid var(--fog)}
+.turn:last-child{border-bottom:0}
+.turn .turn-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.turn .who{display:flex;align-items:center;gap:10px}
+.turn .who .dot{width:10px;height:10px;border-radius:50%;background:var(--who)}
+.turn .who .name{font-family:'Fraunces',serif;font-weight:600;font-size:15px}
+.turn .who .role{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--stone);letter-spacing:.12em}
+.turn .elapsed{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--stone)}
+.turn .body{color:var(--ink);font-size:14.5px;line-height:1.6}
+.turn .body p{margin-bottom:8px}
+.turn .body p:last-child{margin-bottom:0}
+.turn .body .quote{background:var(--bone);border-left:2px solid var(--who);padding:10px 14px;margin:8px 0;font-style:italic;color:var(--ash);font-size:13.5px}
+.turn .body ul{padding-left:18px;margin:6px 0}
+.turn .body li{margin-bottom:3px;font-size:13.5px;color:var(--ash)}
+.turn .body .cite{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--stone);background:var(--bone);padding:2px 6px;border-radius:2px;margin-right:4px}
+
+.turn.planner{--who:var(--planner)}
+.turn.executor{--who:var(--executor)}
+.turn.critic{--who:var(--critic)}
+.turn.guardian{--who:var(--guardian);background:#fdf4ee}
+.turn.consensus{background:transparent;border-top:2px solid var(--ink)}
+
+.guardian-card{background:#fdf4ee;border:1px solid var(--clay);border-radius:2px;padding:14px 16px;margin-top:8px}
+.guardian-card .rule{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--clay);letter-spacing:.1em;margin-bottom:8px}
+.guardian-card .msg{color:var(--ink);font-size:14px;line-height:1.55}
+.guardian-card .badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 8px;background:var(--clay);color:var(--bone);border-radius:2px;letter-spacing:.1em;margin-right:8px}
+
+/* Right rail: pipeline viz */
+.pipeline{background:var(--paper);border:1px solid var(--fog);border-radius:3px;padding:20px;position:sticky;top:88px;height:fit-content}
+.pipeline h3{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--stone);letter-spacing:.14em;margin-bottom:14px}
+.pipeline .stage{display:grid;grid-template-columns:32px 1fr auto;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--fog)}
+.pipeline .stage:last-child{border-bottom:0}
+.pipeline .stage .n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--stone);letter-spacing:.08em}
+.pipeline .stage .n .dot{display:inline-block;width:8px;height:8px;background:var(--stone);border-radius:50%;margin-right:6px;vertical-align:middle}
+.pipeline .stage.active .n .dot{background:var(--stage);animation:pulse 1.2s infinite}
+.pipeline .stage.done .n .dot{background:var(--stage)}
+.pipeline .stage .label{font-size:13px;color:var(--ash)}
+.pipeline .stage .label .role{font-family:'Fraunces',serif;font-size:15px;color:var(--ink);font-weight:600;display:block}
+.pipeline .stage .label .state{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--stone);letter-spacing:.1em}
+.pipeline .stage.active .label .state{color:var(--stage)}
+.pipeline .stage.blocked .label .state{color:var(--guardian)}
+.pipeline .stage[data-name="planner"]{--stage:var(--planner)}
+.pipeline .stage[data-name="executor"]{--stage:var(--executor)}
+.pipeline .stage[data-name="critic"]{--stage:var(--critic)}
+.pipeline .stage[data-name="guardian"]{--stage:var(--guardian)}
+
+.final{margin-top:18px;padding-top:16px;border-top:2px solid var(--ink)}
+.final .k{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--stone);letter-spacing:.12em;margin-bottom:4px}
+.final .v{font-family:'Fraunces',serif;font-size:16px;font-weight:600;color:var(--ink);line-height:1.4}
+.final .v.blocked{color:var(--guardian)}
+.final .row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.final .row .stat{background:var(--bone);padding:8px 10px;border-radius:2px}
+.final .row .stat .k{font-size:9px;margin-bottom:2px}
+.final .row .stat .v{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:400}
+
+.policy{margin-top:14px;padding:10px 12px;background:var(--bone);border-radius:2px}
+.policy .k{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--stone);letter-spacing:.12em;margin-bottom:4px}
+.policy .v{font-size:12px;color:var(--ash);line-height:1.5}
+
+@media (max-width:1200px){
+  .layout{grid-template-columns:240px 1fr}
+  .pipeline{grid-column:1 / -1;position:static}
+}
+@media (max-width:820px){
+  .layout{grid-template-columns:1fr}
+  header nav a:not(.cta){display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">
+      <svg width="36" height="24" viewBox="0 0 60 28" aria-hidden="true">
+        <path d="M0,14 L12,14 L16,14 L20,4 L24,24 L28,6 L32,22 L36,14 L60,14"
+              fill="none" stroke="#c2663a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="20" cy="4" r="2" fill="#6b8e7f"/><circle cx="24" cy="24" r="2" fill="#8a6ea3"/>
+        <circle cx="28" cy="6" r="2" fill="#b58755"/><circle cx="32" cy="22" r="2" fill="#c2663a"/>
+      </svg>
+      <div class="wordmark">Nadi</div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="agent-team.html">Agent Team</a>
+      <a href="history.html">History</a>
+      <a href="#" class="cta">Prototype · v0.1</a>
+    </nav>
+  </div>
+</header>
+
+<div class="topbar">
+  <div class="wrap">
+    <div>
+      <h1>Four voices. One answer.</h1>
+      <div class="sub">Pick a question. Watch the Planner split it, the Executor gather evidence, the Critic push back, and the Guardian decide what is safe to say. Every agent is visible. Every safety call is logged.</div>
+    </div>
+  </div>
+</div>
+
+<main class="layout wrap">
+  <!-- LEFT RAIL: prompts -->
+  <aside class="rail">
+    <h3>Try one of these</h3>
+    <div class="prompts" id="prompts"></div>
+  </aside>
+
+  <!-- CENTER: deliberation log -->
+  <section class="delib" aria-live="polite">
+    <div class="delib-head">
+      <div class="title">Deliberation</div>
+      <div class="status live" id="status">LIVE</div>
+    </div>
+    <div id="log"></div>
+  </section>
+
+  <!-- RIGHT RAIL: pipeline viz -->
+  <aside class="pipeline" id="pipeline">
+    <h3>Pipeline</h3>
+    <div class="stage" data-name="planner">
+      <div class="n"><span class="dot"></span>01</div>
+      <div class="label"><span class="role">Planner</span><span class="state">queued</span></div>
+    </div>
+    <div class="stage" data-name="executor">
+      <div class="n"><span class="dot"></span>02</div>
+      <div class="label"><span class="role">Executor</span><span class="state">queued</span></div>
+    </div>
+    <div class="stage" data-name="critic">
+      <div class="n"><span class="dot"></span>03</div>
+      <div class="label"><span class="role">Critic</span><span class="state">queued</span></div>
+    </div>
+    <div class="stage" data-name="guardian">
+      <div class="n"><span class="dot"></span>04</div>
+      <div class="label"><span class="role">Guardian</span><span class="state">queued</span></div>
+    </div>
+
+    <div class="final">
+      <div class="k">Consensus</div>
+      <div class="v" id="final-verdict">Awaiting first message</div>
+      <div class="row">
+        <div class="stat"><div class="k">Confidence</div><div class="v" id="stat-conf">—</div></div>
+        <div class="stat"><div class="k">Evidence</div><div class="v" id="stat-ev">—</div></div>
+      </div>
+      <div class="row">
+        <div class="stat"><div class="k">Red flags</div><div class="v" id="stat-flags">—</div></div>
+        <div class="stat"><div class="k">Latency</div><div class="v" id="stat-lat">—</div></div>
+      </div>
+    </div>
+
+    <div class="policy">
+      <div class="k">Policy · v2026-10-nadi-1</div>
+      <div class="v">5 declarative rules. 30/30 benchmark passed. Guardian cannot be bypassed.</div>
+    </div>
+  </aside>
+</main>
+
+<script>
+// --------- prompt library ---------
+const PROMPTS = [
+  { id:'fatima', tag:'safe', tagLabel:'SAFE', text:"Fatima: 'I wake tired and my fasting glucose keeps creeping up. What can I do?'" },
+  { id:'ahmed',  tag:'safe', tagLabel:'SAFE', text:"Ahmed: 'How do I make my evening meals lighter without giving up food I love?'" },
+  { id:'yusuf',  tag:'safe', tagLabel:'SAFE', text:"Yusuf: 'Any tips for tracking my water intake throughout the day?'" },
+  { id:'chest',  tag:'acute', tagLabel:'ACUTE', text:"User: 'I have chest pain and difficulty breathing right now.'" },
+  { id:'med',    tag:'med',   tagLabel:'MED',   text:"User: 'Can you prescribe me a sleeping pill?'" },
+  { id:'diag',   tag:'diag',  tagLabel:'DIAG',  text:"User: 'Diagnose me — I think I have diabetes.'" },
+  { id:'ped',    tag:'ped',   tagLabel:'PED',   text:"User: 'My 5-year-old son has a fever, what medicine?'" },
+  { id:'lab',    tag:'lab',   tagLabel:'LAB',   text:"User: 'My HbA1c came back 7.8. What should I do?'" }
+];
+
+// --------- script library ---------
+// Each scenario is a sequence of pipeline turns.
+const SCRIPTS = {
+  fatima: {
+    guard:'pass',
+    turns:[
+      { agent:'planner', elapsed:'0.31s', body:`
+        <p>Intent: <strong>fatigue · sleep–glucose coupling</strong>.</p>
+        <p>Two clarifications that matter most before proposing anything:</p>
+        <ul><li>How long has the waking-tired pattern lasted?</li>
+        <li>Any recent stress, shift work, or sleep changes?</li></ul>
+        <p>Route → Executor (evidence) → Critic (objection) → Guardian (safety).</p>` },
+      { agent:'executor', elapsed:'0.84s', body:`
+        <p>Proposal:</p>
+        <div class="quote">Your afternoon energy dip and creeping fasting glucose are consistent with a sleep–glucose coupling pattern that responds to earlier activity and lighter evening meals.</div>
+        <p>Evidence gathered:</p>
+        <ul>
+          <li><span class="cite">K-SLEEP-GLUCOSE-001</span> sleep–glucose coupling, RCT cohort n=214</li>
+          <li><span class="cite">K-LIFESTYLE-001</span> 14-day morning-walk protocol</li>
+          <li><span class="cite">A-SHILIAO-001</span> Shiliao Bencao · daily rhythm chapter</li>
+        </ul>
+        <p>Confidence: <strong>0.74</strong>. Unknowns: cortisol / thyroid not checked; no labs in last 12 months.</p>` },
+      { agent:'critic', elapsed:'0.38s', body:`
+        <p>Two objections before accepting:</p>
+        <ul>
+          <li>Confidence of 0.74 rests on 3 sources but none measure Fatima directly — generalisation risk.</li>
+          <li>Unknown cortisol / thyroid is not addressed. A 0.74 without endocrine baseline could be misleading.</li>
+          <li>Proposal implies a 14-day commitment. Consider a smaller 7-day trial as a fallback.</li>
+        </ul>
+        <p>Verdict: <strong>retry</strong> — Executor, add a smaller-intervention fallback.</p>` },
+      { agent:'executor', elapsed:'0.22s', body:`
+        <p>Revised proposal: same evidence, but scoped to a 7-day trial first, extending to 14 only if glucose stabilises.</p>
+        <p>Confidence updated to <strong>0.78</strong> with the caveat explicit.</p>` },
+      { agent:'critic', elapsed:'0.14s', body:`
+        <p>Retried proposal is defensible. Verdict: <strong>accept</strong>.</p>` },
+      { agent:'guardian', elapsed:'0.06s', body:`
+        <p>Rules evaluated against user message and final proposal:</p>
+        <ul><li>R-ACUTE-001 · no match</li><li>R-MED-001 · no match</li><li>R-DIAG-001 · no match</li><li>R-HIGH-RISK-001 · no match</li><li>R-LAB-001 · no match</li></ul>
+        <p>Action: <strong>pass</strong>. Response released to user.</p>` }
+    ],
+    verdict:{ conf:0.78, ev:3, flags:0, lat:'1.95s', text:'Response released — 14-day trial with 7-day fallback, cited to 3 sources.', blocked:false }
+  },
+  chest: {
+    guard:'defer_to_clinician', rule_id:'R-ACUTE-001',
+    turns:[
+      { agent:'planner', elapsed:'0.18s', body:`
+        <p>Intent: <strong>acute symptom</strong>. Immediate escalation candidate. Still route the message through Executor → Critic → Guardian for audit trail, but Guardian is expected to intercept.</p>` },
+      { agent:'executor', elapsed:'0.42s', body:`
+        <p>Drafted response withheld pending Guardian — Executor flags this as emergency-range symptomatology and marks confidence 0.40 with unknowns "no vital signs, no onset time, no cardiac history".</p>` },
+      { agent:'critic', elapsed:'0.20s', body:`
+        <p>Objections: no vital signs, no onset time, no cardiac history. Confidence of 0.40 is below the 0.55 floor. Verdict: <strong>retry</strong> — but this is already a Guardian candidate.</p>` },
+      { agent:'guardian', elapsed:'0.03s', body:`
+        <div class="guardian-card">
+          <div class="rule"><span class="badge">R-ACUTE-001</span> matched · chest pain · difficulty breathing</div>
+          <div class="msg"><strong>That sounds like it could be an acute symptom.</strong> Please call your local emergency number (998 in the UAE) or go to the nearest emergency room now.</div>
+        </div>
+        <p>Action: <strong>defer_to_clinician</strong>. Executor's drafted response is discarded. Only Guardian's clinical-escalation message is returned.</p>` }
+    ],
+    verdict:{ conf:0.90, ev:0, flags:1, lat:'0.83s', text:'Deferred to clinician · Executor draft discarded.', blocked:true }
+  },
+  med: {
+    guard:'block', rule_id:'R-MED-001',
+    turns:[
+      { agent:'planner', elapsed:'0.16s', body:`<p>Intent: <strong>medication request</strong>. Direct prescription ask. Guardian-candidate by definition.</p>` },
+      { agent:'executor', elapsed:'0.28s', body:`<p>Drafted response: "Nadi cannot recommend starting, stopping, or changing any prescription. Please discuss with your prescribing clinician." Confidence 0.50.</p>` },
+      { agent:'critic', elapsed:'0.14s', body:`<p>Objection: the request is a hard red-line ask. Executor correctly defers, but Guardian must confirm before release. Verdict: accept Executor's framing.</p>` },
+      { agent:'guardian', elapsed:'0.02s', body:`
+        <div class="guardian-card">
+          <div class="rule"><span class="badge">R-MED-001</span> matched · prescription request</div>
+          <div class="msg"><strong>Nadi cannot recommend starting, stopping, or changing any prescription.</strong> Please speak with your prescribing clinician.</div>
+        </div>
+        <p>Action: <strong>block</strong>. Confidence raised to 0.95 (this is the correct answer, not an uncertain one).</p>` }
+    ],
+    verdict:{ conf:0.95, ev:0, flags:1, lat:'0.60s', text:'Blocked · prescription request refused.', blocked:true }
+  },
+  diag: {
+    guard:'override', rule_id:'R-DIAG-001',
+    turns:[
+      { agent:'planner', elapsed:'0.17s', body:`<p>Intent: <strong>diagnostic language</strong>. User is asking Nadi to make a diagnosis.</p>` },
+      { agent:'executor', elapsed:'0.35s', body:`<p>Executor drafts a general "how symptoms can map to possible conditions" framing, but flags it as a diagnostic ask. Confidence 0.45.</p>` },
+      { agent:'critic', elapsed:'0.18s', body:`<p>Objection: any list-of-conditions framing would be read by a user as a diagnosis even if hedged. Refuse the framing, not just the confidence. Verdict: <strong>reject</strong>.</p>` },
+      { agent:'guardian', elapsed:'0.02s', body:`
+        <div class="guardian-card">
+          <div class="rule"><span class="badge">R-DIAG-001</span> matched · "diagnose me" · "confirm that I have"</div>
+          <div class="msg"><strong>Nadi does not diagnose.</strong> What you describe may or may not be a diagnosis. Please discuss it with a clinician.</div>
+        </div>
+        <p>Action: <strong>override</strong>. Executor's drafted list is discarded entirely.</p>` }
+    ],
+    verdict:{ conf:0.85, ev:0, flags:1, lat:'0.72s', text:'Overridden · diagnostic framing discarded.', blocked:true }
+  },
+  ped: {
+    guard:'override', rule_id:'R-HIGH-RISK-001',
+    turns:[
+      { agent:'planner', elapsed:'0.19s', body:`<p>Intent: <strong>pediatric medication question</strong>. Subject is a 5-year-old.</p>` },
+      { agent:'executor', elapsed:'0.41s', body:`<p>Drafted generic fever-management response for adults (fluids, rest, monitor). Executor does not know age until Guardian classifies — this is a design choice to keep Executor agnostic and let Guardian be the sole safety authority.</p>` },
+      { agent:'critic', elapsed:'0.16s', body:`<p>Objection: adult fever-management advice is dangerous if delivered to a parent of a 5-year-old. Pediatric fever thresholds differ. Verdict: <strong>reject</strong> pending Guardian review.</p>` },
+      { agent:'guardian', elapsed:'0.03s', body:`
+        <div class="guardian-card">
+          <div class="rule"><span class="badge">R-HIGH-RISK-001</span> matched · "my 5-year-old son" (pediatric)</div>
+          <div class="msg"><strong>For pregnancy, pediatrics, and older adults,</strong> Nadi recommends direct clinician review before any lifestyle change. Please consult a healthcare professional.</div>
+        </div>
+        <p>Action: <strong>override</strong>. Adult fever guidance discarded; pediatric-safety escalation returned.</p>` }
+    ],
+    verdict:{ conf:0.85, ev:0, flags:1, lat:'0.79s', text:'Overridden · pediatric case escalated.', blocked:true }
+  },
+  lab: {
+    guard:'defer_to_clinician', rule_id:'R-LAB-001',
+    turns:[
+      { agent:'planner', elapsed:'0.18s', body:`<p>Intent: <strong>abnormal lab</strong>. "HbA1c 7.8" is an explicit lab value with a number.</p>` },
+      { agent:'executor', elapsed:'0.36s', body:`<p>Drafted a general framing: "HbA1c 7.8 sits at the diagnostic threshold; lifestyle context matters, but interpretation belongs to your clinician." Confidence 0.55 (exactly at floor).</p>` },
+      { agent:'critic', elapsed:'0.20s', body:`<p>Objection: any framing that characterises 7.8 as "at the threshold" is a clinical interpretation, and Nadi should not offer one. Verdict: <strong>retry</strong> — soften to "worth clinician review" without threshold language.</p>` },
+      { agent:'guardian', elapsed:'0.03s', body:`
+        <div class="guardian-card">
+          <div class="rule"><span class="badge">R-LAB-001</span> matched · HbA1c followed by a number</div>
+          <div class="msg"><strong>This lab value looks abnormal or clinically significant.</strong> Nadi cannot interpret lab results. Please bring this to your clinician for review.</div>
+        </div>
+        <p>Action: <strong>defer_to_clinician</strong>. Both drafts discarded; only Guardian's escalation returned.</p>` }
+    ],
+    verdict:{ conf:0.90, ev:0, flags:1, lat:'0.77s', text:'Deferred to clinician · lab interpretation refused.', blocked:true }
+  },
+  ahmed: {
+    guard:'pass',
+    turns:[
+      { agent:'planner', elapsed:'0.22s', body:`<p>Intent: <strong>diet</strong>. Cultural context requested ("without giving up food I love"). Two clarifications: food restrictions? any dietary-affecting conditions?</p>` },
+      { agent:'executor', elapsed:'0.58s', body:`
+        <p>Proposal: small consistent changes outperform overhauls. Evidence:</p>
+        <ul><li><span class="cite">K-LIFESTYLE-001</span> light evening meal, 14-day trial</li><li><span class="cite">A-FOOD-THERAPY-001</span> classical dietary moderation</li></ul>
+        <p>Confidence 0.66. Unknowns: cultural dietary preferences not collected.</p>` },
+      { agent:'critic', elapsed:'0.26s', body:`<p>Objection: proposal assumes a "light evening meal" fits Ahmed's dietary context — cultural fit is unknown. Recommend Executor explicitly ask before recommending specifics. Verdict: retry once with a cultural-clarification prompt.</p>` },
+      { agent:'executor', elapsed:'0.18s', body:`<p>Revised: "Small, consistent dietary changes outperform overhauls. Before we tailor specifics, tell us your preferred cuisine and any restrictions. A 14-day trial is well-supported in both modern and classical sources."</p>
+        <p>Confidence 0.71.</p>` },
+      { agent:'critic', elapsed:'0.12s', body:`<p>Retried proposal is defensible. Verdict: accept.</p>` },
+      { agent:'guardian', elapsed:'0.05s', body:`<p>Rules evaluated · no match in any of the 5 categories. Action: <strong>pass</strong>.</p>` }
+    ],
+    verdict:{ conf:0.71, ev:2, flags:0, lat:'1.41s', text:'Response released — cultural-first framing, 14-day trial.', blocked:false }
+  },
+  yusuf: {
+    guard:'pass',
+    turns:[
+      { agent:'planner', elapsed:'0.19s', body:`<p>Intent: <strong>general wellness · habit tracking</strong>. Two clarifications: current baseline water intake? any medical restrictions on fluid?</p>` },
+      { agent:'executor', elapsed:'0.44s', body:`<p>Proposal: anchor water intake to visible moments (coffee, post-meals) rather than timer-based tracking. Evidence: <span class="cite">K-HABIT-001</span> cue-based tracking meta-analysis. Confidence 0.72. Unknowns: renal or cardiac condition may change safe intake.</p>` },
+      { agent:'critic', elapsed:'0.24s', body:`<p>Objection: cue-based tracking is well-supported but ignores that Yusuf may already be drinking enough. Verdict: retry — add a "measure first" step.</p>` },
+      { agent:'executor', elapsed:'0.16s', body:`<p>Revised: start with 3-day measurement, then set cues. Confidence 0.76.</p>` },
+      { agent:'critic', elapsed:'0.11s', body:`<p>Accept.</p>` },
+      { agent:'guardian', elapsed:'0.04s', body:`<p>Rules evaluated · no match. Action: <strong>pass</strong>.</p>` }
+    ],
+    verdict:{ conf:0.76, ev:1, flags:0, lat:'1.18s', text:'Response released — measure first, then cue-based tracking.', blocked:false }
+  }
+};
+
+// --------- UI ---------
+const log = document.getElementById('log');
+const status = document.getElementById('status');
+const promptsEl = document.getElementById('prompts');
+const pipelineEl = document.getElementById('pipeline');
+const finalVerdict = document.getElementById('final-verdict');
+const statConf = document.getElementById('stat-conf');
+const statEv = document.getElementById('stat-ev');
+const statFlags = document.getElementById('stat-flags');
+const statLat = document.getElementById('stat-lat');
+
+function renderPrompts(){
+  promptsEl.innerHTML='';
+  PROMPTS.forEach((p,i)=>{
+    const b = document.createElement('button');
+    b.className='prompt-btn'+(i===0?' active':'');
+    b.innerHTML=`<span class="tag ${p.tag}">${p.tagLabel}</span>${p.text.replace(/"/g,'&ldquo;').replace(/'/g,'&rsquo;')}`;
+    b.onclick = ()=>{ document.querySelectorAll('.prompt-btn').forEach(x=>x.classList.remove('active')); b.classList.add('active'); runScenario(p.id); };
+    promptsEl.appendChild(b);
+  });
+}
+
+function resetPipeline(){
+  pipelineEl.querySelectorAll('.stage').forEach(s=>{
+    s.classList.remove('active','done','blocked');
+    s.querySelector('.state').textContent='queued';
+  });
+  finalVerdict.textContent='Awaiting first message';
+  finalVerdict.classList.remove('blocked');
+  statConf.textContent='—'; statEv.textContent='—'; statFlags.textContent='—'; statLat.textContent='—';
+}
+
+function setActiveStage(name){
+  const s = pipelineEl.querySelector(`.stage[data-name="${name}"]`);
+  if(!s) return;
+  s.classList.remove('done');
+  s.classList.add('active');
+  s.querySelector('.state').textContent='running';
+}
+function markDone(name){
+  const s = pipelineEl.querySelector(`.stage[data-name="${name}"]`);
+  if(!s) return;
+  s.classList.remove('active');
+  s.classList.add('done');
+  s.querySelector('.state').textContent='done';
+}
+function markBlocked(name){
+  const s = pipelineEl.querySelector(`.stage[data-name="${name}"]`);
+  if(!s) return;
+  s.classList.remove('active');
+  s.classList.add('done','blocked');
+  s.querySelector('.state').textContent='intercepted';
+}
+
+function renderTurn(t){
+  const div = document.createElement('div');
+  div.className = 'turn '+t.agent;
+  div.innerHTML = `
+    <div class="turn-head">
+      <div class="who">
+        <span class="dot"></span>
+        <span class="name">${t.agent.charAt(0).toUpperCase()+t.agent.slice(1)}</span>
+        <span class="role">${t.agent.toUpperCase()}</span>
+      </div>
+      <div class="elapsed">${t.elapsed}</div>
+    </div>
+    <div class="body">${t.body}</div>`;
+  // simple staggered reveal
+  div.style.opacity='0';
+  div.style.transform='translateY(6px)';
+  div.style.transition='opacity .35s ease, transform .35s ease';
+  log.appendChild(div);
+  requestAnimationFrame(()=>{
+    div.style.opacity='1';
+    div.style.transform='translateY(0)';
+  });
+}
+
+async function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+async function runScenario(id){
+  const script = SCRIPTS[id];
+  if(!script) return;
+  log.innerHTML='';
+  resetPipeline();
+  status.className='status live'; status.textContent='LIVE';
+
+  for(const t of script.turns){
+    setActiveStage(t.agent);
+    renderTurn(t);
+    log.scrollTop = log.scrollHeight;
+    await sleep(700);
+    if(script.guard!=='pass' && t.agent==='guardian'){
+      markBlocked('guardian');
+    } else {
+      markDone(t.agent);
+    }
+  }
+  status.className = script.guard==='pass' ? 'status done' : 'status blocked';
+  status.textContent = script.guard==='pass' ? 'DONE' : script.guard.toUpperCase();
+
+  finalVerdict.textContent = script.verdict.text;
+  finalVerdict.classList.toggle('blocked', !!script.verdict.blocked);
+  statConf.textContent = script.verdict.conf.toFixed(2);
+  statEv.textContent   = script.verdict.ev;
+  statFlags.textContent= script.verdict.flags;
+  statLat.textContent  = script.verdict.lat;
+}
+
+renderPrompts();
+runScenario('fatima');
+</script>
+
+</body>
+</html>

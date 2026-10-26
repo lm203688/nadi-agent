@@ -1,0 +1,29 @@
+[
+  {
+    "id": "A-FOOD-THERAPY-001",
+    "title": "Shiliao Bencao · Section on daily diet (食疗)",
+    "source": "《食疗本草》, Tang dynasty, c. 8th century CE",
+    "provenance": "Public domain classical Chinese text. English summary is Nadi's editorial paraphrase; the original Chinese is preserved in the citation chain.",
+    "summary_en": "Food is prescribed by nature, not by nature alone. A dish that suits one body may not suit another at another hour. Consistency over intensity — a small, gentle, repeatable change is preferred over a dramatic, unsustainable one.",
+    "summary_zh": "食疗之要，在于顺性而行；一人之食，未必适他时。贵乎恒常，不贵骤变。",
+    "grade": "L3-classical"
+  },
+  {
+    "id": "A-SHILIAO-001",
+    "title": "Shiliao Bencao · Daily rhythm and sleep",
+    "source": "《食疗本草》, Tang dynasty, c. 8th century CE",
+    "provenance": "Public domain classical Chinese text. English summary is Nadi's editorial paraphrase.",
+    "summary_en": "Rise with the light, eat light at dusk. Sleep is not for recovering from exhaustion but for preventing it. A body that is moved in the morning requires less from the night.",
+    "summary_zh": "日升而起，黄昏而食宜少。寝非为补倦，乃为防倦。晨动则夜需少。",
+    "grade": "L3-classical"
+  },
+  {
+    "id": "A-SHEN-NONG-001",
+    "title": "Shen Nong Ben Cao Jing · Overview",
+    "source": "《神农本草经》, c. 1st–2nd century CE",
+    "provenance": "Public domain classical Chinese pharmacopoeia, 365 herbs classified into three grades. Nadi uses only the structural framework, not the specific herb claims.",
+    "summary_en": "The upper grade tonifies and may be taken long-term without harm. The middle grade corrects excess and deficiency. The lower grade treats acute conditions but may not be taken long-term. This three-tier classification is a durable idea of risk-bounded use.",
+    "summary_zh": "上品无毒，多服久服不伤人；中品有补有泻；下品主病，多有毒，不可久服。",
+    "grade": "L3-classical"
+  }
+]

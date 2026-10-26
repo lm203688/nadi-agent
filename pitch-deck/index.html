@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nadi · Pitch Deck · Dubai Create AI Agents Championship 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1a1a;
+    --bone:#f5efe4;
+    --paper:#fbf7ee;
+    --fog:#e5ddc8;
+    --stone:#8a8275;
+    --ash:#4a4641;
+    --clay:#c2663a;
+    --planner:#6b8e7f;
+    --executor:#8a6ea3;
+    --critic:#b58755;
+    --guardian:#c2663a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#0e0d0b;color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .deck{position:fixed;inset:0;overflow:hidden}
+  .slide{
+    position:absolute;inset:0;background:var(--bone);
+    padding:64px 88px;
+    display:none;flex-direction:column;
+    opacity:0;transition:opacity .45s ease;
+  }
+  .slide.active{display:flex;opacity:1}
+  .slide::before{
+    content:attr(data-num);
+    position:absolute;top:28px;right:36px;
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--stone);letter-spacing:.06em;
+  }
+  .brand{
+    position:absolute;top:28px;left:36px;display:flex;align-items:center;gap:10px;color:var(--ink);
+  }
+  .brand .mark{width:24px;height:24px}
+  .brand .name{font-family:'Fraunces',serif;font-weight:600;font-size:16px;letter-spacing:.02em}
+  .brand .chip{
+    margin-left:6px;padding:2px 8px;border:1px solid var(--fog);border-radius:999px;
+    font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--stone);letter-spacing:.08em;
+  }
+  .progress{
+    position:absolute;left:0;bottom:0;height:2px;background:var(--clay);width:0;transition:width .4s ease;
+  }
+  .footer{
+    position:absolute;left:36px;right:36px;bottom:22px;
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--stone);letter-spacing:.05em;
+  }
+  .title-xl{font-family:'Fraunces',serif;font-weight:600;font-size:88px;line-height:1.02;letter-spacing:-.02em;color:var(--ink);margin:0}
+  .title-l{font-family:'Fraunces',serif;font-weight:600;font-size:56px;line-height:1.05;letter-spacing:-.015em;margin:0}
+  .title-m{font-family:'Fraunces',serif;font-weight:600;font-size:36px;line-height:1.15;letter-spacing:-.01em;margin:0 0 12px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--clay);letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px}
+  .lede{font-size:22px;line-height:1.4;color:var(--ash);max-width:820px;margin:24px 0 0}
+  .body{font-size:17px;line-height:1.55;color:var(--ash);max-width:820px;margin:0}
+  .grid{display:grid;gap:24px}
+  .card{
+    background:var(--paper);border:1px solid var(--fog);border-radius:14px;
+    padding:22px 24px;
+  }
+  .card h4{font-family:'Fraunces',serif;font-weight:600;font-size:22px;margin:0 0 8px;color:var(--ink)}
+  .card p{margin:0;font-size:15px;line-height:1.5;color:var(--ash)}
+  .card .role{
+    display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;
+    padding:2px 8px;border-radius:6px;letter-spacing:.1em;color:#fff;margin-bottom:10px;
+  }
+  .agent-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px}
+  .agent{background:var(--paper);border:1px solid var(--fog);border-radius:12px;padding:18px 18px;position:relative;overflow:hidden}
+  .agent::before{content:"";position:absolute;top:0;left:0;right:0;height:3px}
+  .agent.planner::before{background:var(--planner)}
+  .agent.executor::before{background:var(--executor)}
+  .agent.critic::before{background:var(--critic)}
+  .agent.guardian::before{background:var(--guardian)}
+  .agent h5{margin:8px 0 6px;font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:var(--ink)}
+  .agent .role{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--stone);letter-spacing:.1em}
+  .agent p{margin:8px 0 0;font-size:13px;line-height:1.5;color:var(--ash)}
+  table{width:100%;border-collapse:collapse;margin-top:16px;font-size:15px}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--fog);vertical-align:top}
+  th{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--stone);letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+  td.nadi{background:rgba(194,102,58,.06);font-weight:500;color:var(--ink)}
+  .center-slide{justify-content:center;align-items:center;text-align:center}
+  .center-slide .lede{max-width:920px}
+  .num{font-family:'Fraunces',serif;font-weight:700;font-size:120px;line-height:1;color:var(--clay);margin:0}
+  .num-row{display:flex;gap:60px;justify-content:center;align-items:flex-end;margin:36px 0}
+  .num-row .cell{text-align:center}
+  .num-row .cell .lbl{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--stone);letter-spacing:.12em;text-transform:uppercase;margin-top:8px}
+  .quote{font-family:'Fraunces',serif;font-style:italic;font-size:32px;line-height:1.35;color:var(--ink);max-width:900px;margin:24px 0}
+  .cta{margin-top:32px;display:flex;gap:14px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;padding:12px 22px;
+    border-radius:999px;font-size:15px;font-weight:500;
+    background:var(--clay);color:#fff;
+  }
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--fog)}
+  .hint{position:absolute;right:36px;bottom:22px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--stone);letter-spacing:.05em}
+  .divider{width:60px;height:3px;background:var(--clay);margin:16px 0 24px;border:0}
+  .meta-row{display:flex;gap:24px;font-size:14px;color:var(--stone);margin-top:32px;font-family:'JetBrains Mono',monospace;letter-spacing:.06em}
+  .roadmap{margin-top:28px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .roadmap .card h4{font-size:16px}
+  .tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 8px;border-radius:6px;letter-spacing:.08em;background:var(--fog);color:var(--ash);margin-right:6px;margin-bottom:4px}
+  .tag.clay{background:rgba(194,102,58,.14);color:var(--clay)}
+  .footer-brand{font-family:'Fraunces',serif;font-weight:600;color:var(--ink);font-size:12px;letter-spacing:.02em}
+  .cover-mark{width:220px;margin-bottom:28px}
+  .cover-tag{font-size:22px;color:var(--stone);margin-top:14px}
+  .cover-meta{position:absolute;left:88px;bottom:72px;display:flex;gap:32px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--stone);letter-spacing:.1em}
+  .kbd{display:inline-block;padding:2px 6px;border:1px solid var(--fog);border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--stone);background:var(--paper)}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- 1 · Cover -->
+<section class="slide active" data-num="01 / 12">
+  <div class="brand"><svg class="mark" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#f5efe4"/><g transform="translate(8,20)"><path d="M0,12 L14,12 L18,12 L22,2 L26,22 L30,4 L34,20 L38,12 L48,12" fill="none" stroke="#c2663a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></g></svg><span class="name">Nadi</span><span class="chip">PITCH DECK · OCT 2026</span></div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+    <svg class="cover-mark" viewBox="0 0 240 60"><path d="M0,30 L18,30 L22,30 L26,10 L30,50 L34,12 L38,48 L42,30 L60,30" fill="none" stroke="#c2663a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="26" cy="10" r="4" fill="#6b8e7f"/><circle cx="30" cy="50" r="4" fill="#8a6ea3"/><circle cx="34" cy="12" r="4" fill="#b58755"/><circle cx="38" cy="48" r="4" fill="#c2663a"/></svg>
+    <h1 class="title-xl">A team of AI agents<br>that think out loud<br>before they advise you on health.</h1>
+    <p class="cover-tag">For the Dubai Create AI Agents Championship · Best Personal AI Agent track</p>
+  </div>
+  <div class="cover-meta"><span>NADI · OCTOBER 2026</span><span>SOLO ENTRY · OPEN TO COLLABORATORS</span><span>PROTOTYPE · NOT YET COMMERCIALISED</span></div>
+</section>
+
+<!-- 2 · The Problem -->
+<section class="slide" data-num="02 / 12">
+  <div class="brand"><svg class="mark" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#f5efe4"/><g transform="translate(8,20)"><path d="M0,12 L14,12 L18,12 L22,2 L26,22 L30,4 L34,20 L38,12 L48,12" fill="none" stroke="#c2663a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></g></svg><span class="name">Nadi</span></div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+    <p class="kicker">The problem</p>
+    <h2 class="title-l">Every health app talks.<br>None of them argue.</h2>
+    <hr class="divider">
+    <p class="lede">Consumer health AI is crowded. Every funded product in 2026 is a chatbot you talk to. But your health is too important for a single voice — and users cannot tell whether an AI is thinking hard or just agreeing.</p>
+  </div>
+  <div class="footer"><span class="footer-brand">Nadi · Best Personal AI Agent</span><span>Dubai Create AI Agents Championship · 2026</span></div>
+</section>
+
+<!-- 3 · The Insight -->
+<section class="slide" data-num="03 / 12">
+  <div class="brand"><svg class="mark" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#f5efe4"/><g transform="translate(8,20)"><path d="M0,12 L14,12 L18,12 L22,2 L26,22 L30,4 L34,20 L38,12 L48,12" fill="none" stroke="#c2663a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></g></svg><span class="name">Nadi</span></div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+    <p class="kicker">The insight</p>
+    <h2 class="title-l">The winning health agent<br>isn't the one that answers best.<br>It's the one whose reasoning you can see.</h2>
+    <hr class="divider">
+    <div class="grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="card"><span class="role" style="background:var(--clay)">REASONING</span><h4>A product feature</h4><p>Not a technical detail. Reasoning is what the user experiences.</p></div>
+      <div class="card"><span class="role" style="background:var(--clay)">VISIBILITY</span><h4>A safety feature</h4><p>You can only trust advice you saw being earned.</p></div>
+      <div class="card"><span class="role" style="background:var(--clay)">DELIBERATION</span><h4>The best-known way</h4><p>Multi-agent systems with visible disagreement are the current frontier.</p></div>
+    </div>
+  </div>
+  <div class="footer"><span class="footer-brand">Nadi · Best Personal AI Agent</span><span>03</span></div>
+</section>
+
+<!-- 4 · The Solution -->
+<section class="slide" data-num="04 / 12">
+  <div class="brand"><svg class="mark" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#f5efe4"/><g transform="translate(8,20)"><path d="M0,12 L14,12 L18,12 L22,2 L26,22 L30,4 L34,20 L38,12 L48,12" fill="none" stroke="#c2663a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></g></svg><span class="name">Nadi</span></div>
+  <div style="flex:1;display:flex;flex-direction:column">
+    <div style="margin-top:24px">
+      <p class="kicker">The solution</p>
+      <h2 class="title-l">Nadi is a team of four agents.</h2>
+      <p class="lede">You watch the team meet before they advise you.</p>
+    </div>
+    <div class="agent-grid">
+      <div class="agent planner"><span class="role">01 · FRAME</span><h5>Planner</h5><p>Understands your intent. Asks only what is needed. Breaks the task into what to look up.</p></div>
+      <div class="agent executor"><span class="role">02 · EVIDENCE</span><h5>Executor</h5><p>Pulls from your data and a curated knowledge library. Every claim carries a citation.</p></div>
+      <div class="agent critic"><span class="role">03 · CHALLENGE</span><h5>Critic</h5><p>Actively looks for the weakest link. Objects even when Executor is right, to keep the reasoning honest.</p></div>
+      <div class="agent guardian"><span class="role">04 · BOUND</span><h5>Guardian</h5><p>Runtime supervisor. Blocks acute-symptom misdiagnosis, medication changes, diagnostic language. Escalates to a clinician.</p></div>
+    </div>
+  </div>
+  <div class="footer"><span class="footer-brand">Nadi · Best Personal AI Agent</span><span>04</span></div>
+</section>
+
+<!-- 5 · The Ritual -->
+<section class="slide" data-num="05 / 12">
+  <div class="brand"><svg class="mark" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#f5efe4"/><g transform="translate(8,20)"><path d="M0,12 L14,12 L18,12 L22,2 L26,22 L30,4 L34,20 L38,12 L48,12" fill="none" stroke="#c2663a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></g></svg><span class="name">Nadi</span></div>
+  <div style="flex:1;display:flex;flex-direction:column">
+    <div style="margin-top:20px">
+      <p class="kicker">The ritual</p>
+      <h2 class="title-l">You ask. The team meets. You read the transcript.</h2>
+    </div>
+    <div style="background:var(--paper);border:1px solid var(--fog);border-radius:14px;padding:20px 22px;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.7">
+      <div style="color:var(--ink);font-weight:500;font-family:'Inter',sans-serif;font-size:15px;margin-bottom:10px">You: <span style="color:var(--ash);font-weight:400">"I keep waking up tired after 3pm. My fasting glucose keeps creeping up."</span></div>
+      <div><span style="color:var(--planner);font-weight:500">Planner ▸</span> How long has this been going on? Any recent stress or sleep changes?</div>
+      <div><span style="color:var(--executor);font-weight:500">Executor ▸</span> Your wrist HRV dropped 12% over the last 6 weeks (source: wearable export). See also: 3 entries in the curated knowledge library on sleep–glucose coupling.</div>
+      <div><span style="color:var(--critic);font-weight:500">Critic ▸</span> You are skipping the fact that I have not checked cortisol or thyroid status. Correlation ≠ causation.</div>
+      <div><span style="color:var(--guardian);font-weight:500">Guardian ▸</span> Nothing acute. No red-line triggered. Continue with lifestyle suggestions only.</div>
+      <hr style="border:0;border-top:1px solid var(--fog);margin:12px 0">
+      <div style="color:var(--clay);font-family:'Inter',sans-serif;font-size:15px;font-weight:500">▸ Team consensus: try a 14-day morning-walk + light-eating protocol. Re-check fasting glucose in 30 days.</div>
+      <div style="color:var(--stone);font-family:'JetBrains Mono',monospace;font-size:11px;margin-top:6px;letter-spacing:.05em">Confidence 74% · Evidence 6 sources · Red flags 0</div>
+    </div>
+  </div>
+  <div class="footer"><span class="footer-brand">Nadi · Best Personal AI Agent</span><span>05</span></div>
+</section>
+
+<!-- 6 · Why This Wins -->
+<section class="slide" data-num="06 / 12">
+  <div class="brand"><svg class="mark" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#f5efe4"/><g transform="translate(8,20)"><path d="M0,12 L14,12 L18,12 L22,2 L26,22 L30,4 L34,20 L38,12 L48,12" fill="none" stroke="#c2663a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></g></svg><span class="name">Nadi</span></div>
+  <div style="flex:1;display:flex;flex-direction:column">
+    <div style="margin-top:24px">
+      <p class="kicker">Positioning</p>
+      <h2 class="title-l">Where Nadi wins, honestly.</h2>
+    </div>
+    <table>
+      <thead><tr><th></th><th>POP · 2025 winner</th><th>YC health agents</th><th>Uoma</th><th>Nadi</th></tr></thead>
+      <tbody>
+        <tr><td><b>Core ritual</b></td><td>Pop the pill + photo</td><td>Protocol reminders</td><td>Narrative therapy</td><td class="nadi"><b>Team deliberation</b></td></tr>
+        <tr><td><b>Reasoning visibility</b></td><td>High</td><td>Low</td><td>Low</td><td class="nadi"><b>Very high</b></td></tr>
+        <tr><td><b>Safety posture</b></td><td>Adherence-focused</td><td>Consumer</td><td>Therapy, clinician-supervised</td><td class="nadi"><b>Guardian agent = runtime supervisor</b></td></tr>
+        <tr><td><b>Evidence model</b></td><td>Universal</td><td>Integrator</td><td>Conversational</td><td class="nadi"><b>Curated library · citations per claim</b></td></tr>
+        <tr><td><b>Best-fit line</b></td><td>"One ritual a day"</td><td>"Protocol execution"</td><td>"Being heard"</td><td class="nadi"><b>"Advice you can see being earned"</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="footer"><span class="footer-brand">Nadi · Best Personal AI Agent</span><span>06</span></div>
+</section>
+
+<!-- 7 · The Technology -->
+<section class="slide" data-num="07 / 12">
+  <div class="brand"><svg class="mark" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#f5efe4"/><g transform="translate(8,20)"><path d="M0,12 L14,12 L18,12 L22,2 L26,22 L30,4 L34,20 L38,12 L48,12" fill="none" stroke="#c2663a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></g></svg><span class="name">Nadi</span></div>
+  <div style="flex:1;display:flex;flex-direction:column">
+    <div style="margin-top:24px">
+      <p class="kicker">The technology</p>
+      <h2 class="title-l">Small. Focused. Visible.</h2>
+      <p class="lede">No hype. No "we use the latest LLM". Just a team that shows its work.</p>
+    </div>
+    <div class="grid" style="grid-template-columns:repeat(2,1fr);margin-top:16px">
+      <div class="card"><span class="tag">ARCHITECTURE</span><h4>Four agents, one orchestrator</h4><p>Planner → Executor → Critic → Guardian. Explicit, typed I/O. Bounded compute budget per agent.</p></div>
+      <div class="card"><span class="tag">SAFETY</span><h4>Declarative policy, tested</h4><p>A single policy file, version-controlled. 30 adversarial prompts tracked in CI. Guardian catch rate ≥ 95%.</p></div>
+      <div class="card"><span class="tag">KNOWLEDGE</span><h4>Curated, cited, honest</h4><p>15 articles + 8 ancient-text entries (all public domain). Not a 100-million-page web index. Every claim cites an evidence ID.</p></div>
+      <div class="card"><span class="tag">RUNTIME</span><h4>Local-first, reproducible</h4><p>Runs under 8 seconds per deliberation on consumer hardware. Offline-capable. Session-scoped state.</p></div>
+    </div>
+  </div>
+  <div class="footer"><span class="footer-brand">Nadi · Best Personal AI Agent</span><span>07</span></div>
+</section>
+
+<!-- 8 · The Demonstration -->
+<section class="slide" data-num="08 / 12">
+  <div class="brand"><svg class="mark" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#f5efe4"/><g transform="translate(8,20)"><path d="M0,12 L14,12 L18,12 L22,2 L26,22 L30,4 L34,20 L38,12 L48,12" fill="none" stroke="#c2663a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></g></svg><span class="name">Nadi</span></div>
+  <div style="flex:1;display:grid;grid-template-columns:1.1fr 1fr;gap:32px">
+    <div style="display:flex;flex-direction:column;justify-content:center">
+      <p class="kicker">The demonstration</p>
+      <h2 class="title-l">Two minutes.<br>Two mini-episodes.</h2>
+      <hr class="divider">
+      <p class="body">Scene 1 shows a good deliberation. Scene 2 shows a Guardian catch. Together, they are the pitch: <em style="color:var(--clay)">Nadi is a good team, and a cautious one.</em></p>
+      <div class="meta-row"><span>RUNTIME 2:20</span><span>ENGLISH · EN-SUBTITLES</span><span>OFFLINE-CAPABLE</span></div>
+    </div>
+    <div style="display:flex;flex-direction:column;justify-content:center;gap:14px">
+      <div class="card"><span class="tag clay">SCENE 1 · 0:30–1:25</span><h4>A good deliberation</h4><p>Fatima, 38, asks about her afternoon energy dip and creeping fasting glucose. All four agents run, reach consensus. Output: a 14-day lifestyle protocol.</p></div>
+      <div class="card"><span class="tag clay">SCENE 2 · 1:25–2:05</span><h4>A Guardian catch</h4><p>Ahmed, 46, asks about a mildly abnormal lab result. Guardian blocks diagnostic language and outputs: "please see a clinician". No overreach.</p></div>
+    </div>
+  </div>
+  <div class="footer"><span class="footer-brand">Nadi · Best Personal AI Agent</span><span>08</span></div>
+</section>
+
+<!-- 9 · Safety & Ethics -->
+<section class="slide" data-num="09 / 12">
+  <div class="brand"><svg class="mark" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#f5efe4"/><g transform="translate(8,20)"><path d="M0,12 L14,12 L18,12 L22,2 L26,22 L30,4 L34,20 L38,12 L48,12" fill="none" stroke="#c2663a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></g></svg><span class="name">Nadi</span></div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+    <p class="kicker">Safety and ethics</p>
+    <h2 class="title-l">Nadi does not diagnose.<br>Nadi does not prescribe.<br>Nadi never lies about what it knows.</h2>
+    <hr class="divider">
+    <div class="grid" style="grid-template-columns:repeat(2,1fr)">
+      <div class="card"><span class="tag">GUARDIAN</span><h4>Blocks the hard lines</h4><p>Acute-symptom misdiagnosis, medication changes, diagnostic language — all blocked at runtime, not post-hoc.</p></div>
+      <div class="card"><span class="tag">CITATIONS</span><h4>Every claim is sourced</h4><p>Executor cannot emit a claim without an evidence ID. Ungrounded claims are rejected at the pipeline level.</p></div>
+      <div class="card"><span class="tag">CONFIDENCE</span><h4>Visible, honest</h4><p>Every response shows confidence and evidence count. Insufficient evidence returns "insufficient evidence", not a hedged guess.</p></div>
+      <div class="card"><span class="tag">DATA</span><h4>Session-scoped, user-owned</h4><p>No training on personal health data. Local-first storage. Right to delete at any time.</p></div>
+    </div>
+  </div>
+  <div class="footer"><span class="footer-brand">Nadi · Best Personal AI Agent</span><span>09</span></div>
+</section>
+
+<!-- 10 · Where We Are Today -->
+<section class="slide" data-num="10 / 12">
+  <div class="brand"><svg class="mark" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#f5efe4"/><g transform="translate(8,20)"><path d="M0,12 L14,12 L18,12 L22,2 L26,22 L30,4 L34,20 L38,12 L48,12" fill="none" stroke="#c2663a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></g></svg><span class="name">Nadi</span></div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+    <p class="kicker">Where we are today</p>
+    <h2 class="title-l">A real prototype.<br>Not a wireframe. Not a promise.</h2>
+    <div class="num-row">
+      <div class="cell"><div class="num">4</div><div class="lbl">Agents in the team</div></div>
+      <div class="cell"><div class="num">30</div><div class="lbl">Adversarial safety tests</div></div>
+      <div class="cell"><div class="num">23</div><div class="lbl">Curated knowledge entries</div></div>
+      <div class="cell"><div class="num">3</div><div class="lbl">Demo personas</div></div>
+    </div>
+    <div class="meta-row" style="justify-content:flex-start"><span>PROTOTYPE RUNNING</span><span>FRONTEND · 3 PAGES</span><span>NO USERS · NO REVENUE</span></div>
+  </div>
+  <div class="footer"><span class="footer-brand">Nadi · Best Personal AI Agent</span><span>10</span></div>
+</section>
+
+<!-- 11 · Roadmap -->
+<section class="slide" data-num="11 / 12">
+  <div class="brand"><svg class="mark" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#f5efe4"/><g transform="translate(8,20)"><path d="M0,12 L14,12 L18,12 L22,2 L26,22 L30,4 L34,20 L38,12 L48,12" fill="none" stroke="#c2663a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></g></svg><span class="name">Nadi</span></div>
+  <div style="flex:1;display:flex;flex-direction:column">
+    <div style="margin-top:24px">
+      <p class="kicker">The roadmap</p>
+      <h2 class="title-l">From prototype to evidence.</h2>
+    </div>
+    <div class="roadmap">
+      <div class="card"><span class="tag">Q1 · 2027</span><h4>Grand Final</h4><p>Live demo. Mentorship. Expand knowledge library to 60 entries. Harden the safety policy.</p></div>
+      <div class="card"><span class="tag">Q2 · 2027</span><h4>Closed pilot</h4><p>20 users. Iterate on Guardian. Add wearable import (Apple Health, Huawei Health).</p></div>
+      <div class="card"><span class="tag">Q3 · 2027</span><h4>Arabic UX</h4><p>RTL, Arabic-first for Middle East launch. Multi-session memory (7-day rolling, 30-day summary).</p></div>
+      <div class="card"><span class="tag">Q4 · 2027</span><h4>Public beta</h4><p>Public launch. Decision point on commercialisation. Open-source the safety policy.</p></div>
+    </div>
+  </div>
+  <div class="footer"><span class="footer-brand">Nadi · Best Personal AI Agent</span><span>11</span></div>
+</section>
+
+<!-- 12 · The Ask -->
+<section class="slide" data-num="12 / 12">
+  <div class="brand"><svg class="mark" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#f5efe4"/><g transform="translate(8,20)"><path d="M0,12 L14,12 L18,12 L22,2 L26,22 L30,4 L34,20 L38,12 L48,12" fill="none" stroke="#c2663a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></g></svg><span class="name">Nadi</span></div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+    <p class="kicker">The ask</p>
+    <h2 class="title-l">We are asking for three things.</h2>
+    <hr class="divider">
+    <div class="grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="card"><span class="tag clay">01</span><h4>Mentorship</h4><p>Access to Digital Academy, mentors, and the champion community. We want the fastest feedback loop we can find.</p></div>
+      <div class="card"><span class="tag clay">02</span><h4>The grant, if we win</h4><p>AED 550,000 to take Nadi from prototype to a meaningful pilot — safety-tested, cultural-aware, evidence-grounded.</p></div>
+      <div class="card"><span class="tag clay">03</span><h4>A pilot partner</h4><p>One health organisation willing to be honest with us. Feedback matters more than logos.</p></div>
+    </div>
+    <div style="margin-top:36px">
+      <p class="quote">Every health app talks.<br>Nadi has a team that argues before it speaks.</p>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end">
+      <div>
+        <div class="brand" style="position:static;margin:0 0 6px"><svg class="mark" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#f5efe4"/><g transform="translate(8,20)"><path d="M0,12 L14,12 L18,12 L22,2 L26,22 L30,4 L34,20 L38,12 L48,12" fill="none" stroke="#c2663a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></g></svg><span class="name">Nadi</span></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--stone);letter-spacing:.08em">CONTACT · TEAM LEAD DETAILS AT REGISTRATION</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:var(--stone)">فريقٌ يفكّرون بصوت عالٍ قبل أن ينصحوك بشأن صحتك.</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span class="footer-brand">Nadi · Best Personal AI Agent</span><span>Dubai Create AI Agents Championship · 2026</span></div>
+</section>
+
+<div class="progress" id="progress"></div>
+<div class="hint"><span class="kbd">←</span> <span class="kbd">→</span> navigate · <span class="kbd">F</span> fullscreen · <span class="kbd">P</span> print</div>
+
+</div>
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let cur = 0;
+  const progress = document.getElementById('progress');
+  function go(i){
+    if(i<0||i>=total) return;
+    slides[cur].classList.remove('active');
+    cur = i;
+    slides[cur].classList.add('active');
+    progress.style.width = ((cur+1)/total*100)+'%';
+  }
+  window.addEventListener('keydown',(e)=>{
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown') go(cur+1);
+    else if(e.key==='ArrowLeft'||e.key==='PageUp') go(cur-1);
+    else if(e.key==='Home') go(0);
+    else if(e.key==='End') go(total-1);
+    else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+    else if(e.key==='p'||e.key==='P'){ window.print(); }
+  });
+  window.addEventListener('click',(e)=>{
+    if(e.target.closest('.kbd')) return;
+    go(cur+1);
+  });
+  progress.style.width = (1/total*100)+'%';
+</script>
+</body>
+</html>

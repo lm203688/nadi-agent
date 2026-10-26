@@ -1,0 +1,12 @@
+{
+  "id": "ahmed",
+  "session_id": "ahmed-demo",
+  "persona": "Ahmed, 46, Abu Dhabi, engineer",
+  "context": "Recently finished a course of medication. Wants a lifestyle plan. Has a mildly abnormal lab result.",
+  "opt_in_data": ["text_checkins", "lab_result_pdf"],
+  "cultural_context": "traditional, integrative",
+  "lab_result": {
+    "hba1c": 7.4,
+    "note": "mildly elevated; clinician review recommended"
+  }
+}

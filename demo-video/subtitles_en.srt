@@ -1,0 +1,163 @@
+1
+00:00:00,000 --> 00:00:03,500
+Every health app has a chatbot.
+
+2
+00:00:03,500 --> 00:00:06,000
+Nadi has a team.
+
+3
+00:00:06,000 --> 00:00:08,500
+A team of AI agents
+
+4
+00:00:08,500 --> 00:00:11,500
+that think out loud before they advise you on health.
+
+5
+00:00:15,000 --> 00:00:18,500
+Four agents. One meeting.
+
+6
+00:00:18,500 --> 00:00:22,000
+Every time you ask a health question,
+
+7
+00:00:22,000 --> 00:00:25,500
+you watch the team deliberate.
+
+8
+00:00:25,500 --> 00:00:29,000
+Before they advise you.
+
+9
+00:00:30,000 --> 00:00:33,000
+Fatima, 38, in Dubai.
+
+10
+00:00:33,000 --> 00:00:36,500
+Waking up tired after three pm.
+
+11
+00:00:36,500 --> 00:00:39,500
+Fasting glucose creeping up.
+
+12
+00:00:39,500 --> 00:00:42,500
+She types her message to Nadi.
+
+13
+00:00:45,000 --> 00:00:48,500
+Planner asks two clarifying questions.
+
+14
+00:00:48,500 --> 00:00:52,000
+How long, and anything stressful recently.
+
+15
+00:00:52,000 --> 00:00:55,500
+She answers inline.
+
+16
+00:00:55,500 --> 00:00:58,500
+Executor pulls her last six weeks of wearable data.
+
+17
+00:00:58,500 --> 00:01:02,000
+Every claim carries a citation.
+
+18
+00:01:02,000 --> 00:01:05,500
+Critic finds a gap: cortisol and thyroid.
+
+19
+00:01:05,500 --> 00:01:09,000
+It challenges Executor's first proposal.
+
+20
+00:01:09,000 --> 00:01:12,500
+Guardian runs the safety policy.
+
+21
+00:01:12,500 --> 00:01:15,500
+Nothing acute. No red line. Cleared.
+
+22
+00:01:15,500 --> 00:01:19,000
+Consensus: a fourteen-day morning-walk
+
+23
+00:01:19,000 --> 00:01:22,500
+and light-eating protocol.
+
+24
+00:01:22,500 --> 00:01:25,500
+Re-check fasting glucose in thirty days.
+
+25
+00:01:25,500 --> 00:01:28,500
+Confidence 74 percent. Six sources. Zero red flags.
+
+26
+00:01:28,500 --> 00:01:32,000
+The transcript is scrollable. Every claim has an evidence ID.
+
+27
+00:01:32,000 --> 00:01:35,000
+Nothing here is a guess.
+
+28
+00:01:35,000 --> 00:01:38,500
+Ahmed, 46, in Abu Dhabi.
+
+29
+00:01:38,500 --> 00:01:42,000
+He's finished a course of medication.
+
+30
+00:01:42,000 --> 00:01:45,000
+He uploads a lab result. Asks for a plan.
+
+31
+00:01:45,000 --> 00:01:48,500
+Guardian reads the value. Slightly elevated.
+
+32
+00:01:48,500 --> 00:01:52,000
+Nadi does not diagnose. Does not prescribe.
+
+33
+00:01:52,000 --> 00:01:55,000
+It says: please see a clinician.
+
+34
+00:01:55,000 --> 00:01:58,500
+Nadi is a prototype.
+
+35
+00:01:58,500 --> 00:02:02,000
+Today we have four agents,
+
+36
+00:02:02,000 --> 00:02:05,000
+thirty adversarial safety tests,
+
+37
+00:02:05,000 --> 00:02:08,000
+and twenty-three curated knowledge entries.
+
+38
+00:02:08,000 --> 00:02:11,500
+Tomorrow we want a pilot partner in Dubai.
+
+39
+00:02:11,500 --> 00:02:14,500
+We're asking for mentorship,
+
+40
+00:02:14,500 --> 00:02:17,000
+the AED 550,000 grant,
+
+41
+00:02:17,000 --> 00:02:20,000
+and one health organisation willing to give us honest feedback.

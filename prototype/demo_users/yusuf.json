@@ -1,0 +1,8 @@
+{
+  "id": "yusuf",
+  "session_id": "yusuf-demo",
+  "persona": "Yusuf, 29, student",
+  "context": "Curious about traditional health wisdom. No specific health concern.",
+  "opt_in_data": ["text_checkins"],
+  "cultural_context": "integrative, culturally curious"
+}

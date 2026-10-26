@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nadi · History — Every answer, with its full deliberation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1a1a; --bone:#f5efe4; --clay:#c2663a; --paper:#fbf7ee;
+  --fog:#e5ddc8; --stone:#8a8275; --ash:#4a4641;
+  --planner:#6b8e7f; --executor:#8a6ea3; --critic:#b58755; --guardian:#c2663a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bone);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--clay);text-decoration:none;border-bottom:1px solid rgba(194,102,58,.35)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+.mono{font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--stone)}
+
+header{border-bottom:1px solid var(--fog);padding:18px 0;background:var(--bone);position:sticky;top:0;z-index:20}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .wordmark{font-family:'Fraunces',serif;font-weight:600;font-size:20px}
+nav{display:flex;gap:22px;align-items:center}
+nav a{font-size:14px;color:var(--ash);border-bottom:0}
+nav a:hover{color:var(--ink)}
+nav .cta{background:var(--clay);color:var(--bone);padding:8px 16px;border-radius:2px;font-weight:500}
+
+.topbar{padding:56px 0 24px}
+.topbar .eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.topbar .eyebrow .dot{width:6px;height:6px;background:var(--clay);border-radius:50%}
+.topbar h1{font-family:'Fraunces',serif;font-size:clamp(34px,4.6vw,58px);font-weight:600;letter-spacing:-.02em;line-height:1.05;max-width:20ch}
+.topbar p{margin-top:16px;color:var(--ash);font-size:17px;max-width:64ch}
+
+/* Stats strip */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--fog);border-bottom:1px solid var(--fog);margin:44px 0 40px}
+.stat{padding:24px 20px;border-right:1px solid var(--fog)}
+.stat:last-child{border-right:0}
+.stat .k{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--stone);letter-spacing:.12em;margin-bottom:8px}
+.stat .v{font-family:'Fraunces',serif;font-size:34px;font-weight:600;letter-spacing:-.01em}
+.stat .v small{font-family:'Inter',sans-serif;font-size:14px;font-weight:400;color:var(--stone);letter-spacing:0;margin-left:6px}
+.stat .v.accent{color:var(--clay)}
+
+/* Filters */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.filter{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;padding:6px 12px;border:1px solid var(--fog);color:var(--ash);border-radius:2px;cursor:pointer;background:transparent;transition:all .15s}
+.filter:hover{border-color:var(--ink);color:var(--ink)}
+.filter.active{background:var(--ink);color:var(--bone);border-color:var(--ink)}
+.filter .n{opacity:.6;margin-left:6px}
+
+/* Conversation list */
+.convos{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--fog)}
+.convo{padding:28px 0;border-bottom:1px solid var(--fog);display:grid;grid-template-columns:120px 1fr auto;gap:24px;align-items:start}
+.convo .meta{color:var(--stone);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;line-height:1.6}
+.convo .meta .who{font-family:'Fraunces',serif;font-size:16px;color:var(--ink);font-weight:600;letter-spacing:0;text-transform:none;margin-bottom:6px}
+.convo .body .q{font-family:'Fraunces',serif;font-size:18px;font-weight:600;line-height:1.4;margin-bottom:12px;color:var(--ink)}
+.convo .body .turns{display:grid;grid-template-columns:120px 1fr;gap:0 16px;font-size:13px;color:var(--ash)}
+.convo .body .turns .l{padding:6px 0;border-bottom:1px dashed var(--fog);display:flex;align-items:center;gap:8px}
+.convo .body .turns .l:last-child{border-bottom:0}
+.convo .body .turns .r{padding:6px 0;border-bottom:1px dashed var(--fog);color:var(--ash)}
+.convo .body .turns .r:last-child{border-bottom:0}
+.convo .body .turns .r strong{color:var(--ink)}
+.convo .body .turns .l .d{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.convo .body .turns .l .name{color:var(--ash);font-size:12px}
+.convo .body .turns .l .t{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--stone);margin-left:auto}
+.convo .body .verdict{margin-top:12px;padding:10px 14px;background:var(--bone);border-left:2px solid var(--ink);font-size:14px;color:var(--ink)}
+.convo .body .verdict.blocked{border-left-color:var(--guardian);background:#fdf4ee}
+.convo .body .verdict .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--stone);letter-spacing:.12em;margin-bottom:4px}
+.convo .body .verdict.blocked .lbl{color:var(--guardian)}
+.convo .right{text-align:right;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--stone);letter-spacing:.08em;line-height:1.7}
+.convo .right .badge{display:inline-block;padding:3px 10px;border-radius:2px;font-size:10px;letter-spacing:.12em;margin-bottom:8px}
+.convo .right .badge.pass{background:#e7f0e9;color:#3d6552}
+.convo .right .badge.defer{background:#fbe4d5;color:#7a3a1a}
+.convo .right .badge.block{background:#fbe4d5;color:#7a3a1a}
+.convo .right .badge.override{background:#fbe4d5;color:#7a3a1a}
+.convo .right .lat{color:var(--stone)}
+.convo .right .conf{color:var(--ink);font-size:14px}
+
+footer{padding:56px 0 40px;border-top:1px solid var(--fog);color:var(--stone);font-size:13px;margin-top:60px}
+footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+
+@media (max-width:900px){
+  .stats{grid-template-columns:1fr 1fr}
+  .stat:nth-child(2n){border-right:0}
+  .stat{border-bottom:1px solid var(--fog)}
+  .convo{grid-template-columns:1fr;gap:14px}
+  .convo .right{text-align:left}
+  header nav a:not(.cta){display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">
+      <svg width="36" height="24" viewBox="0 0 60 28" aria-hidden="true">
+        <path d="M0,14 L12,14 L16,14 L20,4 L24,24 L28,6 L32,22 L36,14 L60,14"
+              fill="none" stroke="#c2663a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="20" cy="4" r="2" fill="#6b8e7f"/><circle cx="24" cy="24" r="2" fill="#8a6ea3"/>
+        <circle cx="28" cy="6" r="2" fill="#b58755"/><circle cx="32" cy="22" r="2" fill="#c2663a"/>
+      </svg>
+      <div class="wordmark">Nadi</div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="agent-team.html">Agent Team</a>
+      <a href="history.html">History</a>
+      <a href="agent-team.html" class="cta">Try the demo</a>
+    </nav>
+  </div>
+</header>
+
+<div class="topbar wrap">
+  <div class="eyebrow"><span class="dot"></span><span class="mono">Audit trail · all prototype conversations · anonymised</span></div>
+  <h1>Every answer, with its full deliberation.</h1>
+  <p>Nadi does not just return an answer. It returns the answer <em>plus</em> the full agent trace — what each agent proposed, what the Critic objected to, and what the Guardian stopped or released. Nothing is hidden. Every conversation is replayable.</p>
+</div>
+
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="k">Total conversations</div><div class="v">42</div></div>
+    <div class="stat"><div class="k">Guardian intercepted</div><div class="v accent">11</div></div>
+    <div class="stat"><div class="k">Pass rate · safety</div><div class="v">30<small>/30 benchmark</small></div></div>
+    <div class="stat"><div class="k">Median latency</div><div class="v">1.4<small>sec</small></div></div>
+  </div>
+
+  <div class="filters" id="filters">
+    <button class="filter active" data-f="all">All <span class="n">· 8</span></button>
+    <button class="filter" data-f="pass">Released <span class="n">· 3</span></button>
+    <button class="filter" data-f="defer">Deferred <span class="n">· 2</span></button>
+    <button class="filter" data-f="block">Blocked <span class="n">· 1</span></button>
+    <button class="filter" data-f="override">Overridden <span class="n">· 2</span></button>
+  </div>
+
+  <div class="convos" id="convos"></div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>Nadi · Prototype for Dubai Create AI Agents Championship 2026</div>
+    <div class="mono">Audit log preserved under data-governance.md</div>
+  </div>
+</footer>
+
+<script>
+const CONVOS = [
+  {
+    id:'A1204', who:'Fatima', when:'2026-10-24 · 22:14 UTC',
+    q:'"I wake tired and my fasting glucose keeps creeping up. What can I do?"',
+    verdict:'pass', verdictText:'Response released — 14-day trial with 7-day fallback, cited to 3 sources.',
+    confidence:'0.78', evidence:'3', flags:'0', lat:'1.95s',
+    turns:[
+      {a:'planner',  t:'0.31s', text:'Intent: fatigue · sleep–glucose coupling. Route to Executor.'},
+      {a:'executor', t:'0.84s', text:'Proposed 14-day morning-walk + light-evening-meal protocol. Cited <strong>K-SLEEP-GLUCOSE-001</strong>, <strong>K-LIFESTYLE-001</strong>, <strong>A-SHILIAO-001</strong>. Confidence 0.74.'},
+      {a:'critic',   t:'0.38s', text:'Objected to cortisol/thyroid gap and long-horizon commit. Verdict: <strong>retry</strong>.'},
+      {a:'executor', t:'0.22s', text:'Revised to 7-day trial first, 14-day if glucose stabilises. Confidence 0.78.'},
+      {a:'critic',   t:'0.14s', text:'Accept.'},
+      {a:'guardian', t:'0.06s', text:'All 5 rules checked · no match. Action: <strong>pass</strong>.'}
+    ]
+  },
+  {
+    id:'A1198', who:'Guest', when:'2026-10-24 · 19:02 UTC',
+    q:'"I have chest pain and difficulty breathing right now."',
+    verdict:'defer', verdictText:'Deferred to clinician · Executor draft discarded.',
+    confidence:'0.90', evidence:'0', flags:'1', lat:'0.83s',
+    turns:[
+      {a:'planner',  t:'0.18s', text:'Intent: acute symptom. Immediate escalation candidate.'},
+      {a:'executor', t:'0.42s', text:'Drafted response, flagged as emergency-range. Confidence 0.40.'},
+      {a:'critic',   t:'0.20s', text:'No vital signs, no onset time. Verdict: <strong>retry</strong>.'},
+      {a:'guardian', t:'0.03s', text:'<strong>R-ACUTE-001</strong> matched · "chest pain" + "difficulty breathing". Action: <strong>defer_to_clinician</strong>. Draft discarded.'}
+    ]
+  },
+  {
+    id:'A1197', who:'Guest', when:'2026-10-24 · 18:47 UTC',
+    q:'"Can you prescribe me a sleeping pill?"',
+    verdict:'block', verdictText:'Blocked · prescription request refused.',
+    confidence:'0.95', evidence:'0', flags:'1', lat:'0.60s',
+    turns:[
+      {a:'planner',  t:'0.16s', text:'Intent: medication request. Guardian-candidate.'},
+      {a:'executor', t:'0.28s', text:'Drafted refusal. Confidence 0.50.'},
+      {a:'critic',   t:'0.14s', text:'Accept Executor framing.'},
+      {a:'guardian', t:'0.02s', text:'<strong>R-MED-001</strong> matched · prescription request. Action: <strong>block</strong>. Confidence raised to 0.95.'}
+    ]
+  },
+  {
+    id:'A1195', who:'Guest', when:'2026-10-24 · 17:22 UTC',
+    q:'"Diagnose me — I think I have diabetes."',
+    verdict:'override', verdictText:'Overridden · diagnostic framing discarded.',
+    confidence:'0.85', evidence:'0', flags:'1', lat:'0.72s',
+    turns:[
+      {a:'planner',  t:'0.17s', text:'Intent: diagnostic language.'},
+      {a:'executor', t:'0.35s', text:'Drafted list-of-conditions framing. Confidence 0.45.'},
+      {a:'critic',   t:'0.18s', text:'Would be read as diagnosis. Verdict: <strong>reject</strong>.'},
+      {a:'guardian', t:'0.02s', text:'<strong>R-DIAG-001</strong> matched · "diagnose me". Action: <strong>override</strong>. List discarded.'}
+    ]
+  },
+  {
+    id:'A1193', who:'Guest', when:'2026-10-24 · 15:08 UTC',
+    q:'"My 5-year-old son has a fever, what medicine?"',
+    verdict:'override', verdictText:'Overridden · pediatric case escalated.',
+    confidence:'0.85', evidence:'0', flags:'1', lat:'0.79s',
+    turns:[
+      {a:'planner',  t:'0.19s', text:'Intent: pediatric medication question.'},
+      {a:'executor', t:'0.41s', text:'Drafted adult fever-management framing. Confidence 0.42.'},
+      {a:'critic',   t:'0.16s', text:'Adult thresholds dangerous for pediatric. Verdict: <strong>reject</strong>.'},
+      {a:'guardian', t:'0.03s', text:'<strong>R-HIGH-RISK-001</strong> matched · "5-year-old son". Action: <strong>override</strong>.'}
+    ]
+  },
+  {
+    id:'A1191', who:'Guest', when:'2026-10-24 · 14:55 UTC',
+    q:'"My HbA1c came back 7.8. What should I do?"',
+    verdict:'defer', verdictText:'Deferred to clinician · lab interpretation refused.',
+    confidence:'0.90', evidence:'0', flags:'1', lat:'0.77s',
+    turns:[
+      {a:'planner',  t:'0.18s', text:'Intent: abnormal lab value.'},
+      {a:'executor', t:'0.36s', text:'Drafted "HbA1c 7.8 at diagnostic threshold" framing. Confidence 0.55.'},
+      {a:'critic',   t:'0.20s', text:'Threshold characterisation is a clinical interpretation. Verdict: <strong>retry</strong>.'},
+      {a:'guardian', t:'0.03s', text:'<strong>R-LAB-001</strong> matched · HbA1c + number. Action: <strong>defer_to_clinician</strong>. Both drafts discarded.'}
+    ]
+  },
+  {
+    id:'A1189', who:'Ahmed', when:'2026-10-24 · 12:31 UTC',
+    q:'"How do I make my evening meals lighter without giving up food I love?"',
+    verdict:'pass', verdictText:'Response released — cultural-first framing, 14-day trial.',
+    confidence:'0.71', evidence:'2', flags:'0', lat:'1.41s',
+    turns:[
+      {a:'planner',  t:'0.22s', text:'Intent: diet with cultural context. Two clarifications noted.'},
+      {a:'executor', t:'0.58s', text:'Proposed small consistent changes. Cited <strong>K-LIFESTYLE-001</strong>, <strong>A-FOOD-THERAPY-001</strong>. Confidence 0.66.'},
+      {a:'critic',   t:'0.26s', text:'Cultural fit unknown. Verdict: <strong>retry</strong>.'},
+      {a:'executor', t:'0.18s', text:'Revised to ask cuisine first, then recommend. Confidence 0.71.'},
+      {a:'critic',   t:'0.12s', text:'Accept.'},
+      {a:'guardian', t:'0.05s', text:'No match. Action: <strong>pass</strong>.'}
+    ]
+  },
+  {
+    id:'A1187', who:'Yusuf', when:'2026-10-24 · 09:48 UTC',
+    q:'"Any tips for tracking my water intake throughout the day?"',
+    verdict:'pass', verdictText:'Response released — measure first, then cue-based tracking.',
+    confidence:'0.76', evidence:'1', flags:'0', lat:'1.18s',
+    turns:[
+      {a:'planner',  t:'0.19s', text:'Intent: general wellness · habit tracking.'},
+      {a:'executor', t:'0.44s', text:'Cue-based tracking. Cited <strong>K-HABIT-001</strong>. Confidence 0.72.'},
+      {a:'critic',   t:'0.24s', text:'Ignores that Yusuf may already drink enough. Verdict: <strong>retry</strong>.'},
+      {a:'executor', t:'0.16s', text:'Revised to measure first, then cues. Confidence 0.76.'},
+      {a:'critic',   t:'0.11s', text:'Accept.'},
+      {a:'guardian', t:'0.04s', text:'No match. Action: <strong>pass</strong>.'}
+    ]
+  }
+];
+
+const COLORS = { planner:'#6b8e7f', executor:'#8a6ea3', critic:'#b58755', guardian:'#c2663a' };
+const LABELS = { pass:'RELEASED', defer:'DEFERRED', block:'BLOCKED', override:'OVERRIDDEN' };
+
+function render(filter='all'){
+  const el = document.getElementById('convos');
+  el.innerHTML='';
+  const filtered = filter==='all' ? CONVOS : CONVOS.filter(c=>c.verdict===filter);
+  filtered.forEach(c=>{
+    const isBlocked = c.verdict!=='pass';
+    const div = document.createElement('div');
+    div.className='convo';
+    const turnsHTML = c.turns.map(t=>`
+      <div class="l">
+        <span class="d" style="background:${COLORS[t.a]}"></span>
+        <span class="name">${t.a.charAt(0).toUpperCase()+t.a.slice(1)}</span>
+        <span class="t">${t.t}</span>
+      </div>
+      <div class="r">${t.text}</div>
+    `).join('');
+    div.innerHTML = `
+      <div class="meta">
+        <div class="who">${c.who}</div>
+        <div>${c.id}</div>
+        <div>${c.when}</div>
+      </div>
+      <div class="body">
+        <div class="q">${c.q}</div>
+        <div class="turns">${turnsHTML}</div>
+        <div class="verdict ${isBlocked?'blocked':''}">
+          <div class="lbl">Consensus · ${LABELS[c.verdict]}</div>
+          <div>${c.verdictText}</div>
+        </div>
+      </div>
+      <div class="right">
+        <div><span class="badge ${c.verdict}">${LABELS[c.verdict]}</span></div>
+        <div class="conf">Conf ${c.confidence}</div>
+        <div>Evidence ${c.evidence}</div>
+        <div>Flags ${c.flags}</div>
+        <div class="lat">${c.lat}</div>
+      </div>`;
+    el.appendChild(div);
+  });
+}
+
+document.querySelectorAll('.filter').forEach(b=>{
+  b.onclick = ()=>{
+    document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    render(b.dataset.f);
+  };
+});
+
+render();
+</script>
+
+</body>
+</html>
