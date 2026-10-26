@@ -24,12 +24,13 @@ A Planner asks the right questions. An Executor pulls from your wearables and a 
 
 Read these in order:
 
-1. [`docs/01-strategy.md`](docs/01-strategy.md) — why this product, why this track, why now
-2. [`docs/02-product.md`](docs/02-product.md) — the user journey and the four-agent ritual
-3. [`docs/03-architecture.md`](docs/03-architecture.md) — how the team is built and what we reuse
-4. [`docs/05-eligibility.md`](docs/05-eligibility.md) — how we fit inside the "new capability" rule
-5. [`docs/06-pitch-deck-outline.md`](docs/06-pitch-deck-outline.md) — the 12-slide structure of [`pitch-deck/index.html`](pitch-deck/index.html)
-6. [`docs/07-demo-script.md`](docs/07-demo-script.md) — the two-minute demo, frame by frame
+1. [`docs/00-summary-report.md`](docs/00-summary-report.md) — one-page summary for judges (start here)
+2. [`docs/01-strategy.md`](docs/01-strategy.md) — why this product, why this track, why now
+3. [`docs/02-product.md`](docs/02-product.md) — the user journey and the four-agent ritual
+4. [`docs/03-architecture.md`](docs/03-architecture.md) — how the team is built
+5. [`docs/05-eligibility.md`](docs/05-eligibility.md) — how we fit the "new capability" rule
+6. [`docs/06-pitch-deck-outline.md`](docs/06-pitch-deck-outline.md) — the 12-slide structure of [`pitch-deck/index.html`](pitch-deck/index.html)
+7. [`docs/07-demo-script.md`](docs/07-demo-script.md) — the two-minute demo, frame by frame
 
 ## Layout
 
