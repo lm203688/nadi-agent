@@ -43,10 +43,13 @@ Fields that must be filled by the human registrant:
 
 ## 3. Prototype — already ready
 
-- **Repo**: <https://github.com/lm203688/nadi-agent>
-- **GitHub Pages preview**: <https://lm203688.github.io/nadi-agent/>
-- **Pitch deck (live)**: <https://lm203688.github.io/nadi-agent/pitch-deck/>
+- **Repo**: <https://github.com/lm203688/nadi-agent> — **public** (verified 2026-11-16), default branch `main`, last push 2026-11-16.
+- **GitHub Pages preview**: <https://lm203688.github.io/nadi-agent/> (frontend live demo — pick a symptom, chat, see the 4-agent plan).
+- **Live agent-team UI**: <https://lm203688.github.io/nadi-agent/agent-team.html> (200, verified 2026-11-16).
+- **Pitch deck (live)**: <https://lm203688.github.io/nadi-agent/pitch-deck/> (200) — **Slide 4 embeds & plays `demo_inagent.mp4`** (2:00 in-agent demo; `demo_inagent.mp4` returns 200, 1.4 MB, verified 2026-11-16).
 - **Summary report**: [`docs/00-summary-report.md`](00-summary-report.md)
+
+> **Judge access confirmed 2026-11-16**: repo is public (no credentials needed); Pages URLs above are all live and reachable. The prototype runs via clone (commands below) — the `prototype/` folder is intentionally not published to Pages, judges run it locally.
 
 Judges can run the prototype in 6 commands:
 
@@ -143,6 +146,9 @@ If any of these defaults are wrong, change them on the registration form itself 
 | **2026-11-13** | ✅ **Inbox checked for anything needing a reply** — scanned the last 30 messages and the 14-day window; no official Championship email requires action. All items are journal/Apple/publisher notices, unrelated to the competition. **No outgoing email needed at this time** (the Submission Portal opens 2026-12-04; nothing to send before then). |
 | **2026-11-13** | ✅ **Official Submission FAQ cross-checked via external Chrome** — opened the Learning Platform FAQ → **Submission Questions** (27 items). **KEY FINDING: the official entry requirement is FOUR components, not the three we prepared.** The 2-minute demo **must be embedded in Slide 4** of the pitch deck and played during a **6-minute pitch video** (your face must appear; unlisted YouTube/Vimeo/Canva link, 1080p 16:9, English). Prototype must be judge-accessible via link/credentials until the Championship ends. Dates confirmed: open **2026-12-04**, close **2027-01-04 11:59 GST**, semi-finalists **2027-01-29**. This correction is recorded in §9. **Mentor Circle still disabled** (booking via Mentor Circle once open — FAQ Q202). |
 | **2026-11-16** | ✅ **Official phishing/security notice received (via Howspace)** — official Championship communications are sent **only** via Howspace or the official Championship email; do **not** respond to suspicious emails or share project/personal/confidential info with unauthorized senders; **all project submissions & materials must go exclusively through the official Championship portal** (evaluations only happen there; the Championship is not responsible for info shared via unauthorized channels). Personal access link re-issued: `https://create-ai-agents-competition.in.howspace.com/1/3bdc4f9e-f924-447e-8783-a95d89cd9592/463102527` (do not forward). |
+| **2026-11-16** | ✅ **Demo video made compliant & embedded in Slide 4** — replaced the static Fatima transcript block on Slide 4 with a playable **real in-agent demo** (`pitch-deck/demo_inagent.mp4`, 2:00, 1080p16:9, 1.35 MB): Fatima (RELEASED lifestyle protocol) / Ahmed (diet advice) / medication request the Guardian **BLOCKS & escalates** (FAQ Q19 trigger → actions → workflow → outcome). Added `#N` hash deep-link to the deck. Pushed to `main` (`add8614`); verified live on Pages: Slide 4 video `readyState 4`, `playing true`, `duration 120s`; `demo_inagent.mp4` → 200 (1.4 MB). |
+| **2026-11-16** | ✅ **6-minute pitch video recorded** — `pitch-video/final_pitch.mp4` (5:56, 1080p16:9, photo-based speaker + AI English narration). Still to **host unlisted** (YouTube/Vimeo/Canva) at submission time. |
+| **2026-11-16** | ✅ **Judge access confirmed** — repo **public** (no credentials), default branch `main`; live Pages all 200: `/` frontend demo, `/agent-team.html`, `/pitch-deck/` (Slide 4 demo plays). Prototype runs via `git clone` (6 commands, §3). Keep public & re-push before 2027-01-04. |
 | **2026-12-04** | ⏳ Submission Portal opens. |
 | **2027-01-04** | ⬜ **Submission deadline** — upload prototype URL + pitch deck + demo video + summary report. |
 | **2027-01-29** | ⬜ **Semi-finalists announced** (新增日期，来自 11-10 邮件). |
@@ -168,7 +174,7 @@ If any of these defaults are wrong, change them on the registration form itself 
 10. ⬜ Check the Community Chat notifications for the **3 likes + 4 comments** on the Nadi post and reply to any that warrant a response (e.g. Vadim Timchenko's comment).
 11. ✅ **Embed the 2-minute demo in Slide 4** of the pitch deck — official FAQ Q2/Q13/Q16/Q17: the demo **must** be embedded in Slide 4 and played during the 6-minute pitch video; a separate standalone demo upload is **not mandatory**. **Done 2026-11-16** — real in-agent `demo_inagent.mp4` embedded & playable in Slide 4; live on GitHub Pages.
 12. ✅ **Record a 6-minute pitch video** that walks through the deck, plays the embedded 2-minute demo, and shows your face (FAQ Q18/Q21/Q22). Submit as an **unlisted YouTube / Vimeo / Canva link**, in English, clear audio, preferably 1080p 16:9, no permission required (Q23). **Recorded 2026-11-16** (`final_pitch.mp4`, 5:56, photo-based speaker + AI English narration) — still to **host unlisted** at submission time.
-13. ⬜ **Make the prototype accessible to judges** — provide a working link / test credentials; access must remain available **until the end of the Championship** (FAQ Q7/Q8). ✅ GitHub Pages + repo live (verified 2026-11-16); still confirm credentials & keep live.
+13. ✅ **Make the prototype accessible to judges** — provide a working link / test credentials; access must remain available **until the end of the Championship** (FAQ Q7/Q8). **Done 2026-11-16** — repo is **public** (no credentials needed); live Pages: `/` (frontend demo), `/agent-team.html`, `/pitch-deck/` (Slide 4 demo plays). Judges run the agent via `git clone` (6 commands, §3). Keep the repo public & re-push before 2027-01-04.
 14. ✅ **Demo-video format decided**: current `demo-video/final.mp4` (2:24 silent slideshow) superseded — **done 2026-11-16**, replaced by a **2-minute in-agent demo** (`demo_inagent.mp4`: trigger → actions → workflow → outcome, FAQ Q19) embedded in Slide 4; a longer standalone demo is optional (Q17).
 
 ---
